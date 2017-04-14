@@ -74,4 +74,44 @@ public class Sprite
   public void step(World world)
   {
   }
+  public boolean overlap(Sprite a)
+  {
+    if (left<= a.getLeft()+a.getWidth()&&left>=a.getLeft())
+    {
+      if (top<=a.getTop()+a.getHeight()&&top>=a.getTop()||top+height>=a.getTop()&&top+height<=a.getTop()+a.getHeight())
+      {
+        return true
+      }
+      else
+        return false;
+    }
+    else if (left+width>=a.getLeft()&&left+width<=a.getLeft()+a.getWidth())
+    {   
+      if (top<=a.getTop()+a.getHeight()&&top>=a.getTop()||top+height>=a.getTop()&&top+height<=a.getTop()+a.getHeight())
+    {
+      return true;
+    }
+    else
+      return false;
+    }
+    else if (top<=a.getTop()+a.getHeight()&&top>=a.getTop())
+    {
+      if(left<= a.getLeft()+a.getWidth()&&left>=a.getLeft()||left+width>=a.getLeft()&&left+width<=a.getLeft()+a.getWidth())
+        return true;
+      else
+        return false;
+    }
+    else if (top+height>=a.getTop()&&top+height<=a.getTop()+a.getHeight())
+    {
+      if(left<= a.getLeft()+a.getWidth()&&left>=a.getLeft()||left+width>=a.getLeft()&&left+width<=a.getLeft()+a.getWidth())
+        return true;
+      else
+        return false;
+    }
+    else
+    {
+      return false;
+    }
+    
+  }
 }
