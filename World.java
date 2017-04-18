@@ -70,6 +70,10 @@ public class World
   {
     return height;
   }
+  public ArrayList<Sprite> getSprites()
+  {
+    return sprites;
+  }
   
   public int getNumSprites()
   {
