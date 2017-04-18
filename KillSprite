@@ -1,8 +1,9 @@
 public class KillSprite extends LivingSprite
 {
-  public KillSprite (double theLeft, double theTop, int theWidth, int theHeight, boolean theAlive, int lifeSpan, double xVelocity, double yVelocity,  String theImage)
+  public KillSprite (double left, double top, int width, int height, String image,
+                      double velocityX, double velocityY)
   {
-    super (theLeft, theTop, theWidth, theHeight, theAlive, lifeSpan, xVelocity, yVelocity, theImage);
+    super (left, top, width, height, image, velocityX, velocityY);
   }
   
   public void step(World world)
