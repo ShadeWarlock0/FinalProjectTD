@@ -1,0 +1,45 @@
+public class SpawnSprite extends MobileSprite
+{
+  public int spawnDelay;
+  public int initialDelay;
+  public boolean spawning;
+  public MobileSprite spawnable;
+  public SpawnSprite(double left, double top, int width, int height, String image,
+                      double velocityX, double velocityY, int frequency, MobileSprite spawn)
+  {
+    super(left, top, width, height, image, velocityX, velocityY);
+    spawnDelay = frequency;
+    spawnable = spawn;
+    spawning = false;
+    initialDelay = frequency;
+  }
+  public boolean isSpawning()
+  {
+    return spawning;
+  }
+  public int getSpawnDelay()
+  {
+    return spawnDelay;
+  }
+  public void setSpawn(MobileSprite s)
+  {
+    spawnable = s;
+  }
+  public void startSpawn()
+  {
+    spawning = true;
+  }
+  public void step(World world)
+  {
+    super.step(world);
+    if (spawnDelay > 0)
+    {
+      spawnDelay--;
+    }
+    else
+    {
+      spawnDelay = initialDelay;
+      world.getSprites().add(spawnable);
+    }
+  }
+}
