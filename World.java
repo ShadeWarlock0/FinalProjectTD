@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.net.*;
 import java.util.*;
+import java.util.concurrent.*;
+import javax.imageio.*;
 import javax.swing.*;
 
 public class World
@@ -14,9 +18,21 @@ public class World
   private ArrayList<Sprite> sprites;
   private int width;
   private int height;
+  private Image background;
   
   public World(int w, int h)
   {
+    try
+    {
+    URL url = getClass().getResource("Map.png");
+    background = ImageIO.read(url);
+    }
+    catch(IOException e)
+    {
+      e.printStackTrace();
+      throw new RuntimeException("bad");
+    }
+
     width = w;
     height = h;
     
@@ -60,7 +76,10 @@ public class World
       s.step(this);
     }
   }
-  
+  public ArrayList<Sprite> getSprites()
+  {
+    return sprites;
+  }
   public int getWidth()
   {
     return width;
@@ -69,10 +88,6 @@ public class World
   public int getHeight()
   {
     return height;
-  }
-  public ArrayList<Sprite> getSprites()
-  {
-    return sprites;
   }
   
   public int getNumSprites()
@@ -93,6 +108,10 @@ public class World
   public void keyPressed(int key)
   {
     System.out.println("keyPressed:  " + key);
+    if (key == 23)
+    {
+      System.out.println("You pressed key " + key + " this time.");
+    }
   }
   
   public void keyReleased(int key)
@@ -107,8 +126,10 @@ public class World
 
   public void paintComponent(Graphics g)
   {
-    g.setColor(Color.BLACK);
-    g.fillRect(0, 0, width, height);
+    //g.setColor(Color.BLACK);
+    //g.fillRect(0, 0, width, height);
+        
+    g.drawImage(background, 0, 0, width, height, null);
     for (int i = 0; i < sprites.size(); i++)
     {
       Sprite sprite = sprites.get(i);
