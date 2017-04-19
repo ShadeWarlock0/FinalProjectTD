@@ -1,0 +1,27 @@
+import java.awt.*;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import javax.imageio.*;
+
+public class EnemySprite extends LivingSprite
+{
+  private int HP;
+  private LinkedList<Coordinate> path;
+  
+  public EnemySprite(double left, double top, int width, int height, String image,
+                      double velocityX, double velocityY, int health, LinkedList<Coordinate> path)
+  {
+    super(left, top, width, height, image, velocityX, velocityY);
+    HP = health;
+    this.path = path;
+  }
+  public int getHP()
+  {
+    return HP;
+  }
+  public void injure(int damage)
+  {
+    HP -= damage;
+  }
+}
