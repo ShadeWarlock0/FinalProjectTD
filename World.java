@@ -15,10 +15,12 @@ public class World
     display.run();
   }
   
+  private int lives;
   private ArrayList<Sprite> sprites;
   private int width;
   private int height;
   private Image background;
+  private ArrayList<Coordinate> path;
   
   public World(int w, int h)
   {
@@ -35,36 +37,64 @@ public class World
 
     width = w;
     height = h;
-    
+    path = new ArrayList<Coordinate>();
+    path.add(new Coordinate(257, 57)); //index 0
+    path.add(new Coordinate(404, 54)); //index 1
+    path.add(new Coordinate(403, 180)); //2
+    path.add(new Coordinate(162, 182)); //3
+    path.add(new Coordinate(156, 79)); //4
+    path.add(new Coordinate(70, 79)); //5
+    path.add(new Coordinate(70, 280)); //6
+    path.add(new Coordinate(278, 280)); //7
+    path.add(new Coordinate(278, 356)); //8
+    path.add(new Coordinate(135, 356)); //9
+    path.add(new Coordinate(135, 453)); //10
+    path.add(new Coordinate(401, 453)); //11
+    path.add(new Coordinate(401, 520)); //12
     sprites = new ArrayList<Sprite>();
     double dir;
+    lives = 100;
+    
 
     //normal sprites
-    sprites.add(new Sprite(Math.random() * (width - 50),
-                           Math.random() * (height - 50), 50, 50, "square.png"));
-    sprites.add(new Sprite(Math.random() * (width - 50),
-                           Math.random() * (height - 50), 50, 50, "square.png"));
+    sprites.add(new Sprite(87, 100, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(87, 165, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(87, 225, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(157, 205, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(237, 205, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(317, 205, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(185, 120, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(255, 120, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(325, 120, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(65, 360, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(65, 430, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(330, 390, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(390, 390, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(300, 270, 50, 50, "EmptyTower.png"));
+    sprites.add(new Sprite(300, 330, 50, 50, "EmptyTower.png"));
+    sprites.add(new EnemySprite(257, 0, 15, 15, "Robot.gif", 0, 0, 10, path));
+
 
     //mobile sprites
     
-    dir = Math.random() * 2 * Math.PI;
-    sprites.add(new MobileSprite(Math.random() * (width - 50),
-                                 Math.random() * (height - 50), 50, 50, "circle.png",
-                                 Math.cos(dir), Math.sin(dir)));
-    dir = Math.random() * 2 * Math.PI;
-    sprites.add(new MobileSprite(Math.random() * (width - 50),
-                                 Math.random() * (height - 50), 50, 50, "circle.png",
-                                 Math.cos(dir), Math.sin(dir)));
-
-    //heavy sprites
-    dir = Math.random() * 2 * Math.PI;
-    sprites.add(new HeavySprite(Math.random() * (width - 50),
-                                 Math.random() * (height - 50), 50, 50, "triangle.png",
-                                 Math.cos(dir), Math.sin(dir)));
-    dir = Math.random() * 2 * Math.PI;
-    sprites.add(new HeavySprite(Math.random() * (width - 50),
-                                 Math.random() * (height - 50), 50, 50, "triangle.png",
-                                 Math.cos(dir), Math.sin(dir)));
+//    dir = Math.random() * 2 * Math.PI;
+//    sprites.add(new MobileSprite(Math.random() * (width - 50),
+//                                 Math.random() * (height - 50), 50, 50, "circle.png",
+//                                 Math.cos(dir), Math.sin(dir)));
+//    dir = Math.random() * 2 * Math.PI;
+//    sprites.add(new MobileSprite(Math.random() * (width - 50),
+//                                 Math.random() * (height - 50), 50, 50, "circle.png",
+//                                 Math.cos(dir), Math.sin(dir)));
+//
+//    //heavy sprites
+//    dir = Math.random() * 2 * Math.PI;
+//    sprites.add(new HeavySprite(Math.random() * (width - 50),
+//                                 Math.random() * (height - 50), 50, 50, "triangle.png",
+//                                 Math.cos(dir), Math.sin(dir)));
+//    dir = Math.random() * 2 * Math.PI;
+//    sprites.add(new HeavySprite(Math.random() * (width - 50),
+//                                 Math.random() * (height - 50), 50, 50, "triangle.png",
+//                                 Math.cos(dir), Math.sin(dir)));
   }
   
   public void stepAll()
@@ -74,6 +104,15 @@ public class World
       Sprite s = sprites.get(i);
       
       s.step(this);
+      if (sprites.get(i) instanceof EnemySprite)
+      {
+        EnemySprite e = (EnemySprite)sprites.get(i);
+        if (e.getIndex() == 12)
+        {
+          sprites.remove(i);
+          lives--;
+        }
+      }
     }
   }
   public ArrayList<Sprite> getSprites()
@@ -121,7 +160,7 @@ public class World
   
   public String getTitle()
   {
-    return "World";
+    return "World. Lives:" + lives;
   }
 
   public void paintComponent(Graphics g)
