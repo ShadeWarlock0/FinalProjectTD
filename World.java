@@ -16,6 +16,7 @@ public class World
   }
   
   private int lives;
+  private int money;
   private ArrayList<Sprite> sprites;
   private int width;
   private int height;
@@ -51,6 +52,7 @@ public class World
     path.add(new Coordinate(135, 453)); //10
     path.add(new Coordinate(401, 453)); //11
     path.add(new Coordinate(401, 520)); //12
+    path.add(new Coordinate(401, 1000)); //13
     sprites = new ArrayList<Sprite>();
     double dir;
     lives = 100;
@@ -73,6 +75,7 @@ public class World
     sprites.add(new Sprite(300, 270, 50, 50, "EmptyTower.png"));
     sprites.add(new Sprite(300, 330, 50, 50, "EmptyTower.png"));
     sprites.add(new EnemySprite(257, 0, 15, 15, "Robot.gif", 0, 0, 10, path));
+    money = 200;
 
 
     //mobile sprites
@@ -99,6 +102,12 @@ public class World
   
   public void stepAll()
   {
+    if (lives <= 0)
+    {
+      JFrame j = new JFrame();
+      JOptionPane.showMessageDialog(j, "GAME OVER");
+      throw new RuntimeException("You suck.");
+    }
     for (int i = 0; i < sprites.size(); i++)
     {
       Sprite s = sprites.get(i);
@@ -107,7 +116,12 @@ public class World
       if (sprites.get(i) instanceof EnemySprite)
       {
         EnemySprite e = (EnemySprite)sprites.get(i);
-        if (e.getIndex() == 12)
+        if (e.getHP() <= 0)
+        {
+          sprites.remove(i);
+          money ++;
+        }
+        if (e.getIndex() == 13)
         {
           sprites.remove(i);
           lives--;
@@ -160,7 +174,7 @@ public class World
   
   public String getTitle()
   {
-    return "World. Lives:" + lives;
+    return "Feinberg Tower Defense! Lives: " + lives + " Pesos: " + money;
   }
 
   public void paintComponent(Graphics g)
