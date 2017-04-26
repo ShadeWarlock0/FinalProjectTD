@@ -53,7 +53,7 @@ public class EnemySprite extends LivingSprite
     }
     if (Math.abs(super.getLeft() - path.get(index).getX()) <= 1 && Math.abs(super.getTop() - path.get(index).getY()) <= 1)
     {
-      if (index < 12)
+      if (index < 13)
         index++;
     }
   }
