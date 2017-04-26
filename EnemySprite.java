@@ -11,7 +11,7 @@ public class EnemySprite extends LivingSprite
   private int index;
   
   public EnemySprite(double left, double top, int width, int height, String image,
-                      double velocityX, double velocityY, int health, ArrayList<Coordinate> path)
+                     double velocityX, double velocityY, int health, ArrayList<Coordinate> path)
   {
     super(left, top, width, height, image, 0, 0);
     velocityX = 0;
@@ -24,6 +24,10 @@ public class EnemySprite extends LivingSprite
   {
     return HP;
   }
+  public int getIndex()
+  {
+    return index;
+  }
   public void injure(int damage)
   {
     HP -= damage;
@@ -35,7 +39,7 @@ public class EnemySprite extends LivingSprite
     {
       super.setLeft(super.getLeft() - 1);
     }
-    else if (super.getLeft() + super.getWidth() < path.get(index).getX())
+    else if (super.getLeft() < path.get(index).getX())
     {
       super.setLeft(super.getLeft() + 1);
     }
@@ -46,6 +50,11 @@ public class EnemySprite extends LivingSprite
     else if (super.getTop() - super.getHeight() < path.get(index).getY())
     {
       super.setTop(super.getTop() + 1);
+    }
+    if (Math.abs(super.getLeft() - path.get(index).getX()) <= 1 && Math.abs(super.getTop() - path.get(index).getY()) <= 1)
+    {
+      if (index < 12)
+        index++;
     }
   }
 }
