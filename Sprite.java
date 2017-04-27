@@ -71,8 +71,32 @@ public class Sprite
     image = i;
   }
   
+  public int getIndex(Sprite a, World world)
+  {
+    
+    for(int i=0;i<world.getSprites().size();i++)
+    {
+      if(world.getSprites().get(i)==a)
+      {
+        return i;
+      }
+    }
+    return -1;
+  }
+  
   public void step(World world)
   {
+  }
+  public boolean overlapCoord(double x, double y)
+  {
+    if((left<=x)&&(x<=(left+width))&&((top-height)<=x)&&(x<=top))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   public boolean overlap(Sprite a)
   {
