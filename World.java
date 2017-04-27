@@ -152,7 +152,16 @@ public class World
   {
     return sprites.get(index);
   }
-
+  public boolean add (Sprite a)
+  {
+    sprites.add(a);
+    return true;
+  }
+public boolean set(Sprite a, int index)
+  {
+    sprites.set(index,a);
+    return true;
+  }
   public void mouseClicked(int x, int y)
   {
     System.out.println("mouseClicked:  " + x + ", " + y);
@@ -176,7 +185,11 @@ public class World
   {
     return "Feinberg Tower Defense! Lives: " + lives + " Pesos: " + money;
   }
-
+  public boolean remove (int index)
+    {
+      sprites.remove(index);
+      return true;
+    }
   public void paintComponent(Graphics g)
   {
     //g.setColor(Color.BLACK);
