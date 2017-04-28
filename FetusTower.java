@@ -13,5 +13,6 @@ public class FetusTower extends SpawnSprite
   }
 public void step(World world)
   {
+  //implement clicking;
   }
 }
