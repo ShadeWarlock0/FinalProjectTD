@@ -90,6 +90,7 @@ public class TowerSprite extends SpawnSprite
     else
     {
       shoot(world);
+      counter=0;
     }
   }
 }
